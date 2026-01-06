@@ -13,6 +13,8 @@ import {
   User,
 } from "lucide-react";
 import PersonalInfoForm from "../components/PersonalInfoForm";
+import ResumePreview from "../components/ResumePreview";
+import TemplateSelector from "../components/TemplateSelector";
 
 const ResumeBuilder = () => {
   const { resumeId } = useParams();
@@ -84,9 +86,13 @@ const ResumeBuilder = () => {
                   }%`,
                 }}
               />
-              {/* section navigation */}
+              {/* --- Section navigation --- */}
               <div className="flex justify-between items-center mb-6 border-b border-gray-300 py-1">
-                <div></div>
+                {/* template & color selector */}
+                <div className="flex justify-between items-center mb-6 border-b border-gray-300 py-1">
+                  <TemplateSelector selectedTemplate={resumeData.template} onChange={(template) => setResumeData(prev => ({...prev, template})) }/>
+                </div>
+                {/* pre & next btn */}
                 <div className="flex items-center">
                   {activeSectionIndex !== 0 && (
                     <button
@@ -116,7 +122,7 @@ const ResumeBuilder = () => {
                   </button>
                 </div>
               </div>
-              {/* form content */}
+              {/* --- Form content --- */}
               <div className="space-y-6">
                 {activeSection.id === "personal" && (
                   <PersonalInfoForm
@@ -133,7 +139,16 @@ const ResumeBuilder = () => {
             </div>
           </div>
 
-          {/*======= Right Panel - Preview =======*/}
+          {/*======= Right Panel - Preview Template =======*/}
+          <div className="lg:col-span-7 max-lg:mt-6">
+            <div>{/* --- buttons ---*/}</div>
+            {/* --- resume preview layout --- */}
+            <ResumePreview
+              data={resumeData}
+              template={resumeData.template}
+              accentColor={resumeData.accent_color}
+            />
+          </div>
         </div>
       </div>
     </>
