@@ -16,6 +16,8 @@ import PersonalInfoForm from "../components/PersonalInfoForm";
 import ResumePreview from "../components/ResumePreview";
 import TemplateSelector from "../components/TemplateSelector";
 import ColorPicker from "../components/ColorPicker";
+import ProfessionalSummaryForm from "../components/ProfessionalSummaryForm";
+import ExprienceForm from "../components/ExprienceForm";
 
 const ResumeBuilder = () => {
   const { resumeId } = useParams();
@@ -46,7 +48,7 @@ const ResumeBuilder = () => {
 
   /*===== Manage section navigation states =======*/
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
-  const [removeBackground, setremoveBackground] = useState(false);
+  const [removeBackground, setRemoveBackground] = useState(false);
   // sections information list array
   const sections = [
     { id: "personal", name: "Personal Info", icon: User },
@@ -91,8 +93,21 @@ const ResumeBuilder = () => {
               <div className="flex justify-between items-center mb-6 border-b border-gray-300 py-1">
                 {/* template & color selector */}
                 <div className="flex items-center gap-2">
-                  <TemplateSelector selectedTemplate={resumeData.template} onChange={(template) => setResumeData(prev => ({...prev, template})) }/>
-                  <ColorPicker />
+                  <TemplateSelector
+                    selectedTemplate={resumeData.template}
+                    onChange={(template) =>
+                      setResumeData((prev) => ({ ...prev, template }))
+                    }
+                  />
+                  <ColorPicker
+                    selectedColor={resumeData.accent_color}
+                    onChange={(color) =>
+                      setResumeData((prev) => ({
+                        ...prev,
+                        accent_color: color,
+                      }))
+                    }
+                  />
                 </div>
                 {/* pre & next btn */}
                 <div className="flex items-center">
@@ -124,7 +139,7 @@ const ResumeBuilder = () => {
                   </button>
                 </div>
               </div>
-              {/* --- Form content --- */}
+              {/* --- Form tab content --- */}
               <div className="space-y-6">
                 {activeSection.id === "personal" && (
                   <PersonalInfoForm
@@ -134,6 +149,30 @@ const ResumeBuilder = () => {
                         ...prev,
                         personal_info: data,
                       }))
+                    }
+                    removeBackground={removeBackground}
+                    setRemoveBackground={setRemoveBackground}
+                  />
+                )}
+
+                {activeSection.id === "summary" && (
+                  <ProfessionalSummaryForm
+                    data={resumeData.professional_summary}
+                    onChange={(data) =>
+                      setResumeData((prev) => ({
+                        ...prev,
+                        professional_summary: data,
+                      }))
+                    }
+                    setResumeData={setResumeData}
+                  />
+                )}
+
+                {activeSection.id === "experience" && (
+                  <ExprienceForm
+                    data={resumeData.experience}
+                    onChange={(data) =>
+                      setResumeData((prev) => ({ ...prev, experience: data }))
                     }
                   />
                 )}
