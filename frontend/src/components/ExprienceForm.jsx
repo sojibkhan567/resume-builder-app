@@ -141,7 +141,7 @@ const ExprienceForm = ({ data, onChange }) => {
                     updateExprience(index, "description", e.target.value)
                   }
                   rows={4}
-                  className="w-full text-sm px-3 py-2 rounded-lg resize-none"
+                  className="w-full text-sm px-3 py-2 rounded-lg border border-gray-300 focus:ring focus:ring-blue-500 focus:border-blue-500 outline-none resize-none"
                   placeholder="Describe your key responsibilities and achievements..."
                 />
               </div>
