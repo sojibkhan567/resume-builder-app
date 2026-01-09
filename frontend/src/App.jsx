@@ -18,7 +18,7 @@ function App() {
         </Route>
 
         <Route path="login" element={<Login />} />
-        <Route path="preview/:id" element={<Preview />} />
+        <Route path="preview/:resumeId" element={<Preview />} />
       </Routes>
     </>
   );
